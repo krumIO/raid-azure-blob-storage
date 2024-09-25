@@ -1,0 +1,9 @@
+loglevel: Debug
+WriteDirectory: test_output
+raids:
+  ABS:
+    tactics: 
+      - tlp_red
+      # - tlp_amber
+      # - tlp_green
+      # - tlp_clear
