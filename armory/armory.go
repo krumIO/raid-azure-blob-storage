@@ -60,13 +60,14 @@ func CCC_C01_TR01_T01() (result raidengine.MovementResult) {
 		Description: "Movement has not yet started",
 		Function:    utils.CallerPath(0),
 	}
-	result.Description = "Verifying that endpoint was provided"
+	result.Message = "Verifying that endpoint was provided"
 	endpoint := viper.GetString("raids.ABS.endpoint")
 	if endpoint == "" {
 		result.Message = "Endpoint not provided"
 		result.Passed = false
 		return
 	}
+
 	response := MakeGETRequest(endpoint, &result)
 	if !result.Passed {
 		return
@@ -103,11 +104,13 @@ func (a *ABS) CCC_C01_TR02() (strikeName string, result raidengine.StrikeResult)
 
 func CCC_C01_TR02_T01() (result raidengine.MovementResult) {
 	result = raidengine.MovementResult{
-		Description: "This movement is still under construction",
+		Description: "The movement has not yet started.",
 		Function:    utils.CallerPath(0),
 	}
 
-	// TODO: Use this section to write a single step or test that contributes to CCC_C01_TR02
+	result.Description = "Verifying that HTTP endpoint is redirected to HTTPS"
+	ConfirmHTTPSRedirect(viper.GetString("raids.ABS.endpoint"), &result)
+
 	return
 }
 

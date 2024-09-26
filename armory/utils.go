@@ -3,6 +3,7 @@ package armory
 import (
 	"fmt"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/privateerproj/privateer-sdk/raidengine"
@@ -26,7 +27,7 @@ func MakeGETRequest(endpoint string, result *raidengine.MovementResult) *http.Re
 	}
 	defer response.Body.Close()
 
-	result.Description = fmt.Sprintf("Response contained HTTP status code: %d", response.StatusCode)
+	result.Message = fmt.Sprintf("Response contained HTTP status code: %d", response.StatusCode)
 
 	// Check for HTTP success (2xx status codes)
 	if response.StatusCode >= 200 && response.StatusCode < 300 {
@@ -39,13 +40,13 @@ func MakeGETRequest(endpoint string, result *raidengine.MovementResult) *http.Re
 
 // CheckStatusCode checks the TLS version of the response and updates the result
 func CheckTLSVersion(response *http.Response, result *raidengine.MovementResult) {
-	result.Description = "Checking TLS version of response"
+	result.Description = fmt.Sprintf("Checking TLS version of response from: %s", response.Request.URL.String())
 
 	// Check the TLS version of the response
 	tlsVersion := response.TLS.Version
 	if tlsVersion == 0 {
 		result.Passed = false
-		result.Message = "No TLS version found in response"
+		result.Message = fmt.Sprintf("No TLS version found in response from %s", response.Request.URL)
 	} else {
 		result.Passed = true
 		result.Message = fmt.Sprintf("TLS version: %v", tlsVersion)
@@ -75,5 +76,27 @@ func CheckTLSVersion(response *http.Response, result *raidengine.MovementResult)
 	} else {
 		result.Message = "error: No TLS information found in response"
 		result.Passed = false
+	}
+}
+
+func ConfirmHTTPSRedirect(httpsUrl string, result *raidengine.MovementResult) {
+	url := strings.Replace(httpsUrl, "https", "http", 1)
+	response := MakeGETRequest(url, result)
+	result.Description = fmt.Sprintf("Checking for HTTPS redirection on: %s", url)
+
+	if !result.Passed {
+		return
+	}
+
+	// if response.Header.Get("Location") contains https
+	result.Message = "Checking whether HTTP is redirected to HTTPS"
+	location := response.Request.URL.Scheme
+
+	if location == "https" {
+		result.Passed = true
+		result.Message = "HTTP was redirected to HTTPS"
+	} else {
+		result.Passed = false
+		result.Message = "HTTP was not redirected to HTTPS"
 	}
 }
