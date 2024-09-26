@@ -32,7 +32,7 @@ func (a *ABS) GetTactics() map[string][]raidengine.Strike {
 }
 
 // -----
-// Strike and Movements for CCC_C01_TR01 
+// Strike and Movements for CCC_C01_TR01
 // -----
 
 // CCC_C01_TR01 conforms to the Strike function type
@@ -48,25 +48,38 @@ func (a *ABS) CCC_C01_TR01() (strikeName string, result raidengine.StrikeResult)
 		Movements:   make(map[string]raidengine.MovementResult),
 	}
 
-	raidengine.ExecuteMovement(&result, CCC_C01_TR01_T01)
-	// TODO: Additional movement calls go here
+	raidengine.ExecuteMovement(&result, CCC_C01_TR01_T01) // Ensure GET requests communicate via TLS 1.2 or higher
+	// TODO: Consider adding other HTTP methods in subsequent movements
 
 	return
 }
 
+// CCC_C01_TR01_T01 - Ensure GET requests communicate via TLS 1.2 or higher
 func CCC_C01_TR01_T01() (result raidengine.MovementResult) {
 	result = raidengine.MovementResult{
-		Description: "This movement is still under construction",
+		Description: "Movement has not yet started",
 		Function:    utils.CallerPath(0),
 	}
-	
-	// TODO: Use this section to write a single step or test that contributes to CCC.C01
+	result.Description = "Verifying that endpoint was provided"
+	endpoint := viper.GetString("raids.ABS.endpoint")
+	if endpoint == "" {
+		result.Message = "Endpoint not provided"
+		result.Passed = false
+		return
+	}
+	response := MakeGETRequest(endpoint, &result)
+	if !result.Passed {
+		return
+	}
+	CheckTLSVersion(response, &result)
+	if !result.Passed {
+		return
+	}
 	return
 }
 
-
 // -----
-// Strike and Movements for CCC_C01_TR02 
+// Strike and Movements for CCC_C01_TR02
 // -----
 
 // CCC_C01_TR02 conforms to the Strike function type
@@ -93,14 +106,13 @@ func CCC_C01_TR02_T01() (result raidengine.MovementResult) {
 		Description: "This movement is still under construction",
 		Function:    utils.CallerPath(0),
 	}
-	
-	// TODO: Use this section to write a single step or test that contributes to CCC.C01
+
+	// TODO: Use this section to write a single step or test that contributes to CCC_C01_TR02
 	return
 }
 
-
 // -----
-// Strike and Movements for CCC_C01_TR03 
+// Strike and Movements for CCC_C01_TR03
 // -----
 
 // CCC_C01_TR03 conforms to the Strike function type
@@ -127,14 +139,13 @@ func CCC_C01_TR03_T01() (result raidengine.MovementResult) {
 		Description: "This movement is still under construction",
 		Function:    utils.CallerPath(0),
 	}
-	
-	// TODO: Use this section to write a single step or test that contributes to CCC.C01
+
+	// TODO: Use this section to write a single step or test that contributes to CCC_C01_TR03
 	return
 }
- 
 
 // -----
-// Strike and Movements for CCC_C02_TR01 
+// Strike and Movements for CCC_C02_TR01
 // -----
 
 // CCC_C02_TR01 conforms to the Strike function type
@@ -161,14 +172,13 @@ func CCC_C02_TR01_T01() (result raidengine.MovementResult) {
 		Description: "This movement is still under construction",
 		Function:    utils.CallerPath(0),
 	}
-	
-	// TODO: Use this section to write a single step or test that contributes to CCC.C02
+
+	// TODO: Use this section to write a single step or test that contributes to CCC_C02_TR01
 	return
 }
 
-
 // -----
-// Strike and Movements for CCC_C02_TR02 
+// Strike and Movements for CCC_C02_TR02
 // -----
 
 // CCC_C02_TR02 conforms to the Strike function type
@@ -195,14 +205,13 @@ func CCC_C02_TR02_T01() (result raidengine.MovementResult) {
 		Description: "This movement is still under construction",
 		Function:    utils.CallerPath(0),
 	}
-	
-	// TODO: Use this section to write a single step or test that contributes to CCC.C02
+
+	// TODO: Use this section to write a single step or test that contributes to CCC_C02_TR02
 	return
 }
- 
 
 // -----
-// Strike and Movements for CCC_C03_TR01 
+// Strike and Movements for CCC_C03_TR01
 // -----
 
 // CCC_C03_TR01 conforms to the Strike function type
@@ -229,14 +238,13 @@ func CCC_C03_TR01_T01() (result raidengine.MovementResult) {
 		Description: "This movement is still under construction",
 		Function:    utils.CallerPath(0),
 	}
-	
-	// TODO: Use this section to write a single step or test that contributes to CCC.C03
+
+	// TODO: Use this section to write a single step or test that contributes to CCC_C03_TR01
 	return
 }
 
-
 // -----
-// Strike and Movements for CCC_C03_TR02 
+// Strike and Movements for CCC_C03_TR02
 // -----
 
 // CCC_C03_TR02 conforms to the Strike function type
@@ -263,14 +271,13 @@ func CCC_C03_TR02_T01() (result raidengine.MovementResult) {
 		Description: "This movement is still under construction",
 		Function:    utils.CallerPath(0),
 	}
-	
-	// TODO: Use this section to write a single step or test that contributes to CCC.C03
+
+	// TODO: Use this section to write a single step or test that contributes to CCC_C03_TR02
 	return
 }
- 
 
 // -----
-// Strike and Movements for CCC_C04_TR01 
+// Strike and Movements for CCC_C04_TR01
 // -----
 
 // CCC_C04_TR01 conforms to the Strike function type
@@ -297,14 +304,13 @@ func CCC_C04_TR01_T01() (result raidengine.MovementResult) {
 		Description: "This movement is still under construction",
 		Function:    utils.CallerPath(0),
 	}
-	
-	// TODO: Use this section to write a single step or test that contributes to CCC.C04
+
+	// TODO: Use this section to write a single step or test that contributes to CCC_C04_TR01
 	return
 }
 
-
 // -----
-// Strike and Movements for CCC_C04_TR02 
+// Strike and Movements for CCC_C04_TR02
 // -----
 
 // CCC_C04_TR02 conforms to the Strike function type
@@ -331,14 +337,13 @@ func CCC_C04_TR02_T01() (result raidengine.MovementResult) {
 		Description: "This movement is still under construction",
 		Function:    utils.CallerPath(0),
 	}
-	
-	// TODO: Use this section to write a single step or test that contributes to CCC.C04
+
+	// TODO: Use this section to write a single step or test that contributes to CCC_C04_TR02
 	return
 }
- 
 
 // -----
-// Strike and Movements for CCC_C05_TR01 
+// Strike and Movements for CCC_C05_TR01
 // -----
 
 // CCC_C05_TR01 conforms to the Strike function type
@@ -365,14 +370,13 @@ func CCC_C05_TR01_T01() (result raidengine.MovementResult) {
 		Description: "This movement is still under construction",
 		Function:    utils.CallerPath(0),
 	}
-	
-	// TODO: Use this section to write a single step or test that contributes to CCC.C05
+
+	// TODO: Use this section to write a single step or test that contributes to CCC_C05_TR01
 	return
 }
 
-
 // -----
-// Strike and Movements for CCC_C05_TR02 
+// Strike and Movements for CCC_C05_TR02
 // -----
 
 // CCC_C05_TR02 conforms to the Strike function type
@@ -399,14 +403,13 @@ func CCC_C05_TR02_T01() (result raidengine.MovementResult) {
 		Description: "This movement is still under construction",
 		Function:    utils.CallerPath(0),
 	}
-	
-	// TODO: Use this section to write a single step or test that contributes to CCC.C05
+
+	// TODO: Use this section to write a single step or test that contributes to CCC_C05_TR02
 	return
 }
 
-
 // -----
-// Strike and Movements for CCC_C05_TR04 
+// Strike and Movements for CCC_C05_TR04
 // -----
 
 // CCC_C05_TR04 conforms to the Strike function type
@@ -433,14 +436,13 @@ func CCC_C05_TR04_T01() (result raidengine.MovementResult) {
 		Description: "This movement is still under construction",
 		Function:    utils.CallerPath(0),
 	}
-	
-	// TODO: Use this section to write a single step or test that contributes to CCC.C05
+
+	// TODO: Use this section to write a single step or test that contributes to CCC_C05_TR04
 	return
 }
- 
 
 // -----
-// Strike and Movements for CCC_C06_TR01 
+// Strike and Movements for CCC_C06_TR01
 // -----
 
 // CCC_C06_TR01 conforms to the Strike function type
@@ -467,14 +469,13 @@ func CCC_C06_TR01_T01() (result raidengine.MovementResult) {
 		Description: "This movement is still under construction",
 		Function:    utils.CallerPath(0),
 	}
-	
-	// TODO: Use this section to write a single step or test that contributes to CCC.C06
+
+	// TODO: Use this section to write a single step or test that contributes to CCC_C06_TR01
 	return
 }
 
-
 // -----
-// Strike and Movements for CCC_C06_TR02 
+// Strike and Movements for CCC_C06_TR02
 // -----
 
 // CCC_C06_TR02 conforms to the Strike function type
@@ -501,14 +502,13 @@ func CCC_C06_TR02_T01() (result raidengine.MovementResult) {
 		Description: "This movement is still under construction",
 		Function:    utils.CallerPath(0),
 	}
-	
-	// TODO: Use this section to write a single step or test that contributes to CCC.C06
+
+	// TODO: Use this section to write a single step or test that contributes to CCC_C06_TR02
 	return
 }
- 
 
 // -----
-// Strike and Movements for CCC_C07_TR01 
+// Strike and Movements for CCC_C07_TR01
 // -----
 
 // CCC_C07_TR01 conforms to the Strike function type
@@ -535,14 +535,13 @@ func CCC_C07_TR01_T01() (result raidengine.MovementResult) {
 		Description: "This movement is still under construction",
 		Function:    utils.CallerPath(0),
 	}
-	
-	// TODO: Use this section to write a single step or test that contributes to CCC.C07
+
+	// TODO: Use this section to write a single step or test that contributes to CCC_C07_TR01
 	return
 }
 
-
 // -----
-// Strike and Movements for CCC_C07_TR02 
+// Strike and Movements for CCC_C07_TR02
 // -----
 
 // CCC_C07_TR02 conforms to the Strike function type
@@ -569,14 +568,13 @@ func CCC_C07_TR02_T01() (result raidengine.MovementResult) {
 		Description: "This movement is still under construction",
 		Function:    utils.CallerPath(0),
 	}
-	
-	// TODO: Use this section to write a single step or test that contributes to CCC.C07
+
+	// TODO: Use this section to write a single step or test that contributes to CCC_C07_TR02
 	return
 }
- 
 
 // -----
-// Strike and Movements for CCC_C08_TR01 
+// Strike and Movements for CCC_C08_TR01
 // -----
 
 // CCC_C08_TR01 conforms to the Strike function type
@@ -603,14 +601,13 @@ func CCC_C08_TR01_T01() (result raidengine.MovementResult) {
 		Description: "This movement is still under construction",
 		Function:    utils.CallerPath(0),
 	}
-	
-	// TODO: Use this section to write a single step or test that contributes to CCC.C08
+
+	// TODO: Use this section to write a single step or test that contributes to CCC_C08_TR01
 	return
 }
 
-
 // -----
-// Strike and Movements for CCC_ObjStor_C08_TR02 
+// Strike and Movements for CCC_ObjStor_C08_TR02
 // -----
 
 // CCC_ObjStor_C08_TR02 conforms to the Strike function type
@@ -637,14 +634,13 @@ func CCC_ObjStor_C08_TR02_T01() (result raidengine.MovementResult) {
 		Description: "This movement is still under construction",
 		Function:    utils.CallerPath(0),
 	}
-	
-	// TODO: Use this section to write a single step or test that contributes to CCC.C08
+
+	// TODO: Use this section to write a single step or test that contributes to CCC_ObjStor_C08_TR02
 	return
 }
- 
 
 // -----
-// Strike and Movements for CCC_ObjStor_C01_TR01 
+// Strike and Movements for CCC_ObjStor_C01_TR01
 // -----
 
 // CCC_ObjStor_C01_TR01 conforms to the Strike function type
@@ -671,14 +667,13 @@ func CCC_ObjStor_C01_TR01_T01() (result raidengine.MovementResult) {
 		Description: "This movement is still under construction",
 		Function:    utils.CallerPath(0),
 	}
-	
-	// TODO: Use this section to write a single step or test that contributes to CCC.ObjStor.C01
+
+	// TODO: Use this section to write a single step or test that contributes to CCC_ObjStor_C01_TR01
 	return
 }
- 
 
 // -----
-// Strike and Movements for CCC_ObjStor_C02_TR01 
+// Strike and Movements for CCC_ObjStor_C02_TR01
 // -----
 
 // CCC_ObjStor_C02_TR01 conforms to the Strike function type
@@ -705,14 +700,13 @@ func CCC_ObjStor_C02_TR01_T01() (result raidengine.MovementResult) {
 		Description: "This movement is still under construction",
 		Function:    utils.CallerPath(0),
 	}
-	
-	// TODO: Use this section to write a single step or test that contributes to CCC.ObjStor.C02
+
+	// TODO: Use this section to write a single step or test that contributes to CCC_ObjStor_C02_TR01
 	return
 }
- 
 
 // -----
-// Strike and Movements for CCC_ObjStor_C03_TR01 
+// Strike and Movements for CCC_ObjStor_C03_TR01
 // -----
 
 // CCC_ObjStor_C03_TR01 conforms to the Strike function type
@@ -739,14 +733,13 @@ func CCC_ObjStor_C03_TR01_T01() (result raidengine.MovementResult) {
 		Description: "This movement is still under construction",
 		Function:    utils.CallerPath(0),
 	}
-	
-	// TODO: Use this section to write a single step or test that contributes to CCC.ObjStor.C03
+
+	// TODO: Use this section to write a single step or test that contributes to CCC_ObjStor_C03_TR01
 	return
 }
 
-
 // -----
-// Strike and Movements for CCC_ObjStor_C03_TR02 
+// Strike and Movements for CCC_ObjStor_C03_TR02
 // -----
 
 // CCC_ObjStor_C03_TR02 conforms to the Strike function type
@@ -773,14 +766,13 @@ func CCC_ObjStor_C03_TR02_T01() (result raidengine.MovementResult) {
 		Description: "This movement is still under construction",
 		Function:    utils.CallerPath(0),
 	}
-	
-	// TODO: Use this section to write a single step or test that contributes to CCC.ObjStor.C03
+
+	// TODO: Use this section to write a single step or test that contributes to CCC_ObjStor_C03_TR02
 	return
 }
- 
 
 // -----
-// Strike and Movements for CCC_ObjStor_C05_TR01 
+// Strike and Movements for CCC_ObjStor_C05_TR01
 // -----
 
 // CCC_ObjStor_C05_TR01 conforms to the Strike function type
@@ -807,14 +799,13 @@ func CCC_ObjStor_C05_TR01_T01() (result raidengine.MovementResult) {
 		Description: "This movement is still under construction",
 		Function:    utils.CallerPath(0),
 	}
-	
-	// TODO: Use this section to write a single step or test that contributes to CCC.ObjStor.C05
+
+	// TODO: Use this section to write a single step or test that contributes to CCC_ObjStor_C05_TR01
 	return
 }
 
-
 // -----
-// Strike and Movements for CCC_ObjStor_C05_TR04 
+// Strike and Movements for CCC_ObjStor_C05_TR04
 // -----
 
 // CCC_ObjStor_C05_TR04 conforms to the Strike function type
@@ -841,14 +832,13 @@ func CCC_ObjStor_C05_TR04_T01() (result raidengine.MovementResult) {
 		Description: "This movement is still under construction",
 		Function:    utils.CallerPath(0),
 	}
-	
-	// TODO: Use this section to write a single step or test that contributes to CCC.ObjStor.C05
+
+	// TODO: Use this section to write a single step or test that contributes to CCC_ObjStor_C05_TR04
 	return
 }
- 
 
 // -----
-// Strike and Movements for CCC_ObjStor_C06_TR01 
+// Strike and Movements for CCC_ObjStor_C06_TR01
 // -----
 
 // CCC_ObjStor_C06_TR01 conforms to the Strike function type
@@ -875,14 +865,13 @@ func CCC_ObjStor_C06_TR01_T01() (result raidengine.MovementResult) {
 		Description: "This movement is still under construction",
 		Function:    utils.CallerPath(0),
 	}
-	
-	// TODO: Use this section to write a single step or test that contributes to CCC.ObjStor.C06
+
+	// TODO: Use this section to write a single step or test that contributes to CCC_ObjStor_C06_TR01
 	return
 }
 
-
 // -----
-// Strike and Movements for CCC_ObjStor_C06_TR04 
+// Strike and Movements for CCC_ObjStor_C06_TR04
 // -----
 
 // CCC_ObjStor_C06_TR04 conforms to the Strike function type
@@ -909,14 +898,13 @@ func CCC_ObjStor_C06_TR04_T01() (result raidengine.MovementResult) {
 		Description: "This movement is still under construction",
 		Function:    utils.CallerPath(0),
 	}
-	
-	// TODO: Use this section to write a single step or test that contributes to CCC.ObjStor.C06
+
+	// TODO: Use this section to write a single step or test that contributes to CCC_ObjStor_C06_TR04
 	return
 }
- 
 
 // -----
-// Strike and Movements for CCC_ObjStor_C07_TR01 
+// Strike and Movements for CCC_ObjStor_C07_TR01
 // -----
 
 // CCC_ObjStor_C07_TR01 conforms to the Strike function type
@@ -943,14 +931,13 @@ func CCC_ObjStor_C07_TR01_T01() (result raidengine.MovementResult) {
 		Description: "This movement is still under construction",
 		Function:    utils.CallerPath(0),
 	}
-	
-	// TODO: Use this section to write a single step or test that contributes to CCC.ObjStor.C07
+
+	// TODO: Use this section to write a single step or test that contributes to CCC_ObjStor_C07_TR01
 	return
 }
- 
 
 // -----
-// Strike and Movements for CCC_ObjStor_C08_TR01 
+// Strike and Movements for CCC_ObjStor_C08_TR01
 // -----
 
 // CCC_ObjStor_C08_TR01 conforms to the Strike function type
@@ -977,8 +964,7 @@ func CCC_ObjStor_C08_TR01_T01() (result raidengine.MovementResult) {
 		Description: "This movement is still under construction",
 		Function:    utils.CallerPath(0),
 	}
-	
-	// TODO: Use this section to write a single step or test that contributes to CCC.ObjStor.08
+
+	// TODO: Use this section to write a single step or test that contributes to CCC_ObjStor_C08_TR01
 	return
 }
- 
