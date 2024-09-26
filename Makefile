@@ -4,7 +4,7 @@ BUILD_WIN=@env GOOS=windows GOARCH=amd64 go build -o $(PACKNAME).exe
 BUILD_LINUX=@env GOOS=linux GOARCH=amd64 go build -o $(PACKNAME)
 BUILD_MAC=@env GOOS=darwin GOARCH=amd64 go build -o $(PACKNAME)-darwin
 
-release: go-package go-release go-bin
+release: go-package go-release
 release-candidate: go-package go-release-candidate
 binary: go-package go-build
 
